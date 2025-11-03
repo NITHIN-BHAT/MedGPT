@@ -1,0 +1,69 @@
+[
+  {
+    "id": "paracetamol",
+    "name": "Paracetamol",
+    "generic": "Acetaminophen",
+    "class": "Antipyretic/Analgesic",
+    "ingredients": ["Paracetamol"],
+    "uses": ["Fever", "Mild Pain", "Headache"],
+    "sideEffects": ["Nausea", "Rash"],
+    "contraindications": ["Severe liver disease"],
+    "interactions": ["Alcohol excess"],
+    "brands": [
+      { "region": "IN", "brand": "Dolo 650" },
+      { "region": "IN", "brand": "Crocin" },
+      { "region": "US", "brand": "Tylenol" }
+    ],
+    "priceINR": 2.5
+  },
+  {
+    "id": "ibuprofen",
+    "name": "Ibuprofen",
+    "generic": "Ibuprofen",
+    "class": "NSAID",
+    "ingredients": ["Ibuprofen"],
+    "uses": ["Inflammation", "Muscle Pain", "Dysmenorrhea", "Headache"],
+    "sideEffects": ["Gastric irritation"],
+    "contraindications": ["Gastric ulcer", "Severe kidney disease"],
+    "interactions": ["Anticoagulants"],
+    "brands": [
+      { "region": "IN", "brand": "Brufen" },
+      { "region": "US", "brand": "Advil" },
+      { "region": "EU", "brand": "Nurofen" }
+    ],
+    "priceINR": 3.2
+  },
+  {
+    "id": "ashwagandha",
+    "name": "Ashwagandha",
+    "generic": "Withania somnifera",
+    "class": "Adaptogen/Herbal",
+    "ingredients": ["Withanolides"],
+    "uses": ["Stress", "Sleep", "Anxiety"],
+    "sideEffects": ["Drowsiness"],
+    "contraindications": ["Pregnancy"],
+    "interactions": ["Sedatives"],
+    "brands": [
+      { "region": "IN", "brand": "Himalaya Ashwagandha" },
+      { "region": "Global", "brand": "Generic Capsules" }
+    ],
+    "priceINR": 5.5
+  },
+  {
+    "id": "amoxiclav",
+    "name": "Amoxicillin + Clavulanic Acid",
+    "generic": "Amoxicillin/Clavulanate",
+    "class": "Antibiotic",
+    "ingredients": ["Amoxicillin", "Clavulanic Acid"],
+    "uses": ["Bacterial Infections", "Sinusitis", "Dental"],
+    "sideEffects": ["Diarrhea", "Rash"],
+    "contraindications": ["Penicillin allergy"],
+    "interactions": ["Warfarin"],
+    "brands": [
+      { "region": "IN", "brand": "Augmentin 625" },
+      { "region": "US", "brand": "Augmentin" },
+      { "region": "Global", "brand": "Generic Amox/Clav" }
+    ],
+    "priceINR": 22.0
+  }
+]

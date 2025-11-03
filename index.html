@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedGPT Web — Universal Medicine Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="theme-dark">
+  <header class="header glass">
+    <div class="brand">
+      <img src="assets/logo.png" class="logo" alt="logo"/>
+      <div class="brand-text">
+        <h1>MedGPT Web</h1>
+        <p>Universal Medicine Assistant • Intent-aware • Explainable</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="mode-toggle glass soft">
+        <span>Explain Mode</span>
+        <button id="modeSimple" class="seg active">Simple</button>
+        <button id="modeDoctor" class="seg">Doctor</button>
+      </div>
+      <button id="btnSettings" class="btn ghost">About / Settings</button>
+      <select id="selLang" class="select">
+        <option value="en" selected>EN</option>
+        <option value="hi">HI</option>
+        <option value="kn">KN</option>
+        <option value="mr">MR</option>
+        <option value="ta">TA</option>
+        <option value="te">TE</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Chat column -->
+    <section class="chat glass">
+      <div id="chatWindow" class="chat-window"></div>
+
+      <div class="composer glass soft">
+        <label for="file" class="btn icon" title="Upload (for full analysis use Summarizer tab)">
+          <img src="assets/upload.png" alt="upload"/>
+          <input id="file" type="file" accept="image/*,.pdf" hidden/>
+        </label>
+
+        <button id="btnMic" class="btn icon" title="Voice input">
+          <img src="assets/mic.png" alt="mic"/>
+        </button>
+
+        <input id="input" type="text" class="input" placeholder="Ask about a medicine or describe symptoms…"/>
+
+        <button id="btnSend" class="btn primary" title="Send">
+          <img src="assets/send.png" alt="send"/>
+        </button>
+      </div>
+    </section>
+
+    <!-- Right sidebar -->
+    <aside class="right">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" data-tab="profileTab">Profile</button>
+        <button class="tab" data-tab="mapperTab">Brand Mapper</button>
+        <button class="tab" data-tab="summarizerTab">Report Summarizer</button>
+      </div>
+
+      <!-- Profile & Safety -->
+      <section id="profileTab" class="panel tabpanel active glass">
+        <h3>Profile & Safety</h3>
+        <div class="grid">
+          <label>Age <input id="age" type="number" min="1" value="21"></label>
+          <label>Region
+            <select id="region">
+              <option value="IN" selected>IN</option>
+              <option value="US">US</option>
+              <option value="EU">EU</option>
+            </select>
+          </label>
+          <label class="col-2">Allergies (comma-separated)
+            <input id="allergies" type="text" placeholder="penicillin, peanuts">
+          </label>
+        </div>
+        <div class="toggles">
+          <label class="toggle"><input id="hasUlcer" type="checkbox"> Ulcer history</label>
+          <label class="toggle"><input id="hasLiver" type="checkbox"> Liver issues</label>
+          <label class="toggle"><input id="brandMapper" type="checkbox" checked> Global Brand Mapper</label>
+          <label class="toggle"><input id="explainMode" type="checkbox" checked> Explainability</label>
+          <label class="toggle"><input id="costMode" type="checkbox" checked> Cost Optimizer</label>
+        </div>
+        <p class="disclaimer">Demo only — not medical advice. Always consult a licensed clinician.</p>
+
+        <div class="hsep"></div>
+        <h3>Selected Medicines</h3>
+        <div id="selectedMeds" class="chips"></div>
+
+        <div class="hsep"></div>
+        <h3>Interactions</h3>
+        <ul id="interactionList" class="list"></ul>
+
+        <div class="hsep"></div>
+        <h3>Risk Visualizer</h3>
+        <canvas id="riskRadar" width="280" height="280"></canvas>
+        <p class="muted small">Risk is heuristic and educational only.</p>
+
+        <div class="hsep"></div>
+        <h3>Ask Profile AI</h3>
+        <div class="row">
+          <input id="profileQAInput" class="input" placeholder="e.g., Is ibuprofen safe for me?" />
+          <button id="btnProfileQA" class="btn">Ask</button>
+        </div>
+        <div id="profileQAResult" class="kcard glass soft" style="margin-top:10px;"></div>
+      </section>
+
+      <!-- Brand Mapper -->
+      <section id="mapperTab" class="panel tabpanel glass">
+        <h3>🌐 India ↔ Foreign Brand Mapper</h3>
+        <p class="muted small">Type a generic/brand to map across regions.</p>
+        <div class="row">
+          <input id="mapperQuery" class="input" placeholder="e.g., Dolo 650 or Paracetamol" />
+          <button id="btnMap" class="btn">Map</button>
+        </div>
+
+        <div class="hsep"></div>
+        <h3>Ask Mapper AI (free-form)</h3>
+        <div class="row">
+          <input id="mapperQAInput" class="input" placeholder="e.g., What is Crocin called in the US?" />
+          <select id="mapFrom" class="select"><option>IN</option><option>US</option><option>EU</option></select>
+          <select id="mapTo" class="select"><option>US</option><option>IN</option><option>EU</option></select>
+          <button id="btnMapperQA" class="btn">Ask</button>
+        </div>
+        <div id="mapResult" class="kcard glass soft" style="margin-top:10px;"></div>
+        <div id="mapperQAResult" class="kcard glass soft" style="margin-top:10px;"></div>
+      </section>
+
+      <!-- Report Summarizer -->
+      <section id="summarizerTab" class="panel tabpanel glass">
+        <h3>AI Report Summarizer</h3>
+        <p class="muted small">Upload a medical report (PDF/Image) to get a plain-language summary + risks.</p>
+        <div class="row">
+          <input id="reportFile" type="file" accept="application/pdf,image/*"/>
+          <button id="btnSummarize" class="btn">Summarize</button>
+        </div>
+        <div id="summarizeStatus" class="muted small"></div>
+      </section>
+    </aside>
+  </main>
+
+  <div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h3>About this Demo</h3>
+        <button id="btnCloseSettings" class="btn ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <ul class="list">
+          <li><b>Dual-intent chat</b>: symptoms ↔ medicines</li>
+          <li><b>Explain Modes</b>: Simple vs Doctor</li>
+          <li><b>Risk Radar</b>: sedation, gastro, liver, kidney, interactions, allergy</li>
+          <li><b>Brand Mapper</b>: India ↔ US/EU (DB + AI)</li>
+          <li><b>Profile AI</b>: personalized Q&A using your profile</li>
+          <li><b>Report Summarizer</b>: PDF/Image → insights</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.USE_BACKEND = true;
+    window.BACKEND_BASE = "http://127.0.0.1:8000";
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
