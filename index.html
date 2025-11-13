@@ -102,38 +102,21 @@
         <h3>Interactions</h3>
         <ul id="interactionList" class="list"></ul>
 
-        <div class="hsep"></div>
-        <h3>Risk Visualizer</h3>
-        <canvas id="riskRadar" width="280" height="280"></canvas>
-        <p class="muted small">Risk is heuristic and educational only.</p>
-
-        <div class="hsep"></div>
-        <h3>Ask Profile AI</h3>
-        <div class="row">
-          <input id="profileQAInput" class="input" placeholder="e.g., Is ibuprofen safe for me?" />
-          <button id="btnProfileQA" class="btn">Ask</button>
-        </div>
-        <div id="profileQAResult" class="kcard glass soft" style="margin-top:10px;"></div>
+        
       </section>
 
-      <!-- Brand Mapper -->
+      <!-- Brand Mapper (AI only) -->
       <section id="mapperTab" class="panel tabpanel glass">
-        <h3>🌐 India ↔ Foreign Brand Mapper</h3>
-        <p class="muted small">Type a generic/brand to map across regions.</p>
-        <div class="row">
-          <input id="mapperQuery" class="input" placeholder="e.g., Dolo 650 or Paracetamol" />
-          <button id="btnMap" class="btn">Map</button>
-        </div>
+        <h3>🌐 AI Brand Mapper</h3>
+        <p class="muted small">Ask the AI: "What is Dolo 650 called in the US?" or "Global equivalents of Augmentin".</p>
 
-        <div class="hsep"></div>
-        <h3>Ask Mapper AI (free-form)</h3>
         <div class="row">
           <input id="mapperQAInput" class="input" placeholder="e.g., What is Crocin called in the US?" />
           <select id="mapFrom" class="select"><option>IN</option><option>US</option><option>EU</option></select>
           <select id="mapTo" class="select"><option>US</option><option>IN</option><option>EU</option></select>
           <button id="btnMapperQA" class="btn">Ask</button>
         </div>
-        <div id="mapResult" class="kcard glass soft" style="margin-top:10px;"></div>
+
         <div id="mapperQAResult" class="kcard glass soft" style="margin-top:10px;"></div>
       </section>
 
@@ -160,8 +143,7 @@
         <ul class="list">
           <li><b>Dual-intent chat</b>: symptoms ↔ medicines</li>
           <li><b>Explain Modes</b>: Simple vs Doctor</li>
-          <li><b>Risk Radar</b>: sedation, gastro, liver, kidney, interactions, allergy</li>
-          <li><b>Brand Mapper</b>: India ↔ US/EU (DB + AI)</li>
+          <li><b>Brand Mapper</b>: AI-driven global equivalences</li>
           <li><b>Profile AI</b>: personalized Q&A using your profile</li>
           <li><b>Report Summarizer</b>: PDF/Image → insights</li>
         </ul>
